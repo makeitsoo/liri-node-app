@@ -14,6 +14,8 @@
 //    * `do-what-it-says`
 
 // global variables
+	// grab code from keys.js file:
+var client = require("./keys.js");
 var fs = require('fs');
 var request = require('request');
 var functionRequest = process.argv[2];
@@ -112,12 +114,17 @@ function omdbAPI(movieOrSong) {
 
 // this function will grab and show last 20 tweets and show the time/date they were created
 function myTwitter() {
-	console.log("YES! You just tried to search the Twitter API");
-
-    // will need to pass consumer_key, consumer_secret, access_token_key
-    // and access_token_secret to twitter
-
-    // find a way to look at tweets and only show 20 most recent tweets
+    // get only 20 most recent tweets
+    var params = {count: 20};
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+	  if(error) throw error;
+	  // loop through object for each tweet and return text & time/date
+	  for (var i = 0; i < 20; i++) {
+	  console.log("Tweeted: " + tweets[i].text);
+	  console.log("On: " + tweets[i].created_at); 
+	  console.log("--------------------------");
+	  } 
+	});
 }
 
 // this function will 
