@@ -58,25 +58,37 @@ function normalizeUserEntry() {
 	    movieOrSong = nodeArgs[3];
 	  }
 	}
-	// and call omdbAPI
+	// if command entered is "movie-this" then call omdbAPI
 	if (functionRequest === "movie-this") {
+		if (movieOrSong) {
 		omdbAPI(movieOrSong);
-	}
+		}	
+		else {
+			var movieOrSong = "Mr. Nobody";
+			omdbAPI(movieOrSong);
+			console.log(movieOrSong);	
+		}
+	} 
+	// if command entered is "spotify-this-song" then call spotify API
 	else if (functionRequest === "spotify-this-song") {
-		mySpotify(movieOrSong) 
+		if (movieOrSong) {
+			mySpotify(movieOrSong) 
+		}
+		else {
+			var movieOrSong = "The Sign";
+			mySpotify(movieOrSong);
+			console.log(movieOrSong);
+		}
 	}
-}
-
+} // close function
 
 // this function will make a request to the omdbAPI and 
     // return title, year, rating, location, language, plot, actors, etc
 function omdbAPI(movieOrSong) {	
-	// Include the request npm package (Don't forget to run "npm install request" in this folder first!)
+	// Include the request npm package (remember to run "npm install request" in this folder)
 	var request = require("request");
-
-	// Then run a request to the OMDB API with the movie specified
 	var queryUrl = "http://www.omdbapi.com/?t=" + movieOrSong + "&y=&plot=short&apikey=40e9cece";
-
+	// Then run a request to the OMDB API with the movie specified
 	request(queryUrl, function(error, response, body) {
 
 	  // If the request is successful
