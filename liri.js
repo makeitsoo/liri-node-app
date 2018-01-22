@@ -1,17 +1,4 @@
-// write the code you need to grab the data from keys.js. 
-// Then store the keys in a variable.
-
-
-
-// Make it so liri.js can take in one of the following commands:
-
-//    * `my-tweets`
-
-//    * `spotify-this-song`
-
-//    * `movie-this`
-
-//    * `do-what-it-says`
+// main file for LIRI node app
 
 // global variables
 	// grab code from keys.js file:
@@ -108,6 +95,9 @@ function omdbAPI(movieOrSong) {
 	    console.log("Plot: " + JSON.parse(body).Plot);
 	    console.log("Starring: " + JSON.parse(body).Actors);
 	    console.log("-------------------------------------------------");
+	  	var logData = "Title: " + JSON.parse(body).Title + ", " + "ReleaseYr: " + JSON.parse(body).Year + ", " + "IMDB: " + JSON.parse(body).imdbRating + ", " + "Actors: " + JSON.parse(body).Actors + ", " + "Countries: " + JSON.parse(body).Country + ", "+ ", " + "Plot: " + JSON.parse(body).Plot + "|";
+	  	// calls function to write results to txt file
+	    logResults(logData);
 	  } // close if statement
 	}); // close response function
 } // close omdb function
@@ -123,7 +113,10 @@ function myTwitter() {
 	  console.log("Tweeted: " + tweets[i].text);
 	  console.log("On: " + tweets[i].created_at); 
 	  console.log("--------------------------");
+	  var logData = "Tweeted: " + tweets[i].text + ", " + "Date_Time: " + tweets[i].created_at + "|";
 	  } 
+	  // calls function to write results to txt file
+	  logResults(logData);
 	});
 }
 
@@ -154,6 +147,9 @@ function mySpotify(movieOrSong) {
 	var album = data.tracks.items[0].album.name;
     console.log("Album: " + album);
     console.log("-------------------------------------------------");
+    var logData = "Artist: " + band + ", " + "Song: " + song + ", " + "Album: " + album + ", " + "Preview_URL: " + preview +"|";
+	// calls function to write results to txt file
+    logResults(logData);
 	});
 }
 
@@ -169,8 +165,14 @@ function doWhatItSays() {
 	});
 }
 
-
-
+// this function uses fs module to write results to txt file log.txt
+function logResults(logData) {
+	// append logData from results to log.txt file
+	fs.appendFile('log.txt', logData, (err) => {
+		if (err) throw err;
+		console.log("---------------------------");
+	});
+}
 
 
 
