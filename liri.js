@@ -127,41 +127,46 @@ function myTwitter() {
 	});
 }
 
-// this function will 
+// this function will call Spotify api and return info on song
 function mySpotify(movieOrSong) {
-
 	var Spotify = require('node-spotify-api');
-	 
 	var spotify = new Spotify({
 	  id: "2d42f82af6224f07993b3b395db068ad",
 	  secret: "2221dcc9fe6647d39484170ccb5518d2"
 	});
-
+	// call api using search method
 	spotify.search({ type: 'track', query: movieOrSong, limit: 1 }, function(err, data) {
 	  if (err) {
 	    return console.log('Error occurred: ' + err);
 	  }
 	// uncomment to see entire JSON object
 	// console.log(JSON.stringify(data, null, 2));
-
+	// artist name
 	var band = data.tracks.items[0].album.artists[0].name;
 	console.log("Artist: " + band);
-
+	// song name
 	var song = data.tracks.items[0].name;
 	console.log("Song: " + song);
-
+	// preview URL
 	var preview = data.tracks.items[0].preview_url;
 	console.log("Preview URL: " + preview);
-
+	// album name
 	var album = data.tracks.items[0].album.name;
     console.log("Album: " + album);
     console.log("-------------------------------------------------");
 	});
 }
 
+// this function will take text from random.txt file and use to call LIRI command
 function doWhatItSays() {
-	console.log("YES! You just tried to search the blah API");
-
+	// uses fs module to read data from random.txt file
+	fs.readFile('random.txt',"utf8", function(err, data) {
+	  if (err) throw err;
+	  //splits text file by comma and stores in array res
+	  var res = data.split(',');
+	  // grabs second element in array and passes as arg in function called
+	  mySpotify(res[1]);
+	});
 }
 
 
