@@ -114,9 +114,9 @@ function myTwitter() {
 	  console.log("On: " + tweets[i].created_at); 
 	  console.log("--------------------------");
 	  var logData = "Tweeted: " + tweets[i].text + ", " + "Date_Time: " + tweets[i].created_at + "|";
-	  } 
 	  // calls function to write results to txt file
 	  logResults(logData);
+	  } 
 	});
 }
 
@@ -170,7 +170,6 @@ function logResults(logData) {
 	// append logData from results to log.txt file
 	fs.appendFile('log.txt', logData, (err) => {
 		if (err) throw err;
-		console.log("---------------------------");
 	});
 }
 
