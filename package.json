@@ -19,7 +19,6 @@
   "dependencies": {
     "install": "^0.10.2",
     "node-spotify-api": "^1.0.7",
-    "npm": "^5.6.0",
     "request": "^2.83.0",
     "twitter": "^1.7.1"
   }
